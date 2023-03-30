@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자리배치도</title>
+</head>
+<body>
+    
+    <script>
+        var memNum = prompt("입장객은 몇 명인가?") //전체 입장객 수
+        var colNum = prompt("한 줄에 몇 명씩 앉는가?") //한 줄에 앉을 사람 수
+
+        if(memNum % colNum === 0){
+            rowNum = parseInt(memNum / colNum);
+            remain = parseInt(memNum % colNum);
+        }else{
+            rowNum = parseInt(memNum / colNum) + 1
+            remain = colNum - parseInt(memNum % colNum);
+        }
+        document.write("모두 " + rowNum + "개의 줄이 필요하다. ");
+        document.write(rowNum + "번째 줄에서 " + remain + "개 좌석이 남는다.")
+    </script>
+</body>
+</html>
