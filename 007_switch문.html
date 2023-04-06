@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>switch문</title>
+</head>
+
+<body>
+
+    <script>
+        // 문제1
+        // switch문을 if문으로 변환
+        let browser = prompt('어떤 브라우저를 사용하세요?')
+
+        // switch문
+        // switch (browser) {
+        //     case 'Chrome':
+        //         alert('Chrome을 사용하시네요. 감사합니다.');
+        //         break;
+        //     case 'Edge':
+        //     case 'Firefox':
+        //     case 'Safari':
+        //     case 'Opera':
+        //         alert('Chrome도 많이 사용해주세요.');
+        //         break;
+        //     default:
+        //         alert('어떤 브라우저를 사용하시는거죠??');
+        // }
+        // if문
+        if (browser === 'Chrome') {
+            alert('Chrome을 사용하시네요. 감사합니다.');
+        } else if (browser === 'Edge' || browser === 'Firefox' || browser === 'Safari' || browser === 'Opera') {
+            alert('Chrome도 많이 사용해주세요.');
+        } else {
+            alert('어떤 브라우저를 사용하시는거죠??');
+        }
+
+        // 문제2
+        // if문을 switch문으로 변환
+        let a = +prompt('a?', '');
+
+        // if문
+        if (a == 0) {
+            alert(0);
+        }
+        if (a == 1) {
+            alert(1);
+        }
+        if (a == 2 || a == 3) {
+            alert('2,3');
+        }
+        
+        // switch문
+        switch(a){
+            case '0': alert(0);
+                break;
+            case '1': alret(1);
+                break;
+            case '2':
+            case '3': alert('2, 3');
+                break;
+        }
+    </script>
+</body>
+
+</html>
