@@ -9,8 +9,49 @@
 <body>
     
     <script>
-    if (a > 10){
-        //! hello
+    // 문제 1
+    // 마지막에 뜨는 값
+    let i = 3;
+
+    while (i) {
+        alert( i-- );
+    } // 3, 2, 1 순서로 출력됨
+    // 왜 while문은 i=0일 때 멈추지??? +는 무한루프인데 뭐지?
+    // i가 0이 되면 조건이 falsy가 되므로 반복문이 멈춥니다.??
+    
+    // 문제 2 (while문 for문) - 전위형, 후위형
+    // 전위형 증가 연산자
+    let i_2 = 0;
+    while (++i_2 < 5) alert( i_2 ); // 4까지 출력
+    // 값을 출력하고 ++하기
+
+    // 후위형 증가 연산자
+    let ii_2 = 0;
+    while (ii_2++ < 5) alert( ii_2 ); // 5까지 출력
+    // ++하고 값 출력
+
+    // for문의 경우 둘 다 0부터 4까지
+    for (let i = 0; i < 5; i++) alert( i );
+    for (let i = 0; i < 5; ++i) alert( i );
+
+    // 문제 3
+    // for문으로 2부터 10까지 중 짝수만 출력
+    for (let i = 2; i <= 10 ; i++){
+        if(i % 2 ==0){
+            alert(i);
+        }
+    }
+
+    // 문제 4
+    // for 반복문을 while 반복문으로
+    for (let i = 0; i < 3; i++) {
+        alert( `number ${i}!` );
+    }
+
+    let i_4= 0;
+    while(i_4<3){
+        alert(`number ${i_4}!`);
+        i_4++;
     }
     </script>
 </body>
