@@ -113,8 +113,6 @@ arr3.sort(function(a, b) { return b - a; });
 
 alert( arr3 ); // 8, 5, 2, 1, -10
 
-/////////////////
-
 // 문제 10 - 배열 정렬
 let arr4 = ["HTML", "JavaScript", "CSS"];
 
@@ -123,15 +121,39 @@ let sorted = copySorted(arr4);
 alert( sorted ); // CSS, HTML, JavaScript
 alert( arr4 ); // HTML, JavaScript, CSS (no changes)
 
+function copySorted(arr){
+    return arr.slice().sort();
+}
 
-// 문제 11 - 확장 가능한 계산기
+// 문제 11 - 확장 가능한 계산기 -method에 대한 이해도 부족으로 모르겠음...
 let calc = new Calculator;
 
 alert( calc.calculate("3 + 7") ); // 10
 
 // 문제 12 - 이름 매핑하기
+let john = { name: "John", age: 25 };
+let pete = { name: "Pete", age: 30 };
+let mary = { name: "Mary", age: 28 };
+
+let users = [ john, pete, mary ];
+
+let names = users.map(item => item.name)
+
+alert( names ); // John, Pete, Mary
 
 // 문제 13 - 객체 매핑하기
+let john1 = { name: "John", surname: "Smith", id: 1 };
+let pete1 = { name: "Pete", surname: "Hunt", id: 2 };
+let mary1 = { name: "Mary", surname: "Key", id: 3 };
+
+let users1 = [ john1, pete1, mary1 ];
+
+let usersMapped = users1.map(item => ({ fullName: `${item.name} ${item.surname}`, id: item.id}));
+
+alert( usersMapped[0].id ) // 1
+alert( usersMapped[0].fullName ) // John Smith
+
+///////////
 
 // 문제 14 - 나이 기준으로 객체 정렬하기
 
