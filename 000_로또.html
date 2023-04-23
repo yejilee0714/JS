@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .ball {
+            margin: 10px;
+            width: 70px;
+            height: 70px;
+            background-color: rosybrown;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+
+    <script>
+        const balls = document.querySelectorAll(".ball")
+        var myArray5 = [1, 2, 3, 4, 5, 6, 7];
+
+        for (var i = 0; i < balls.length; i++) {
+            balls[i].onclick = function () {
+                console.log(balls[i], i)
+                let num = prompt('번호를 입력해주세요');
+                alert(num + '번호가 입력되었습니다!');
+                balls[i].innerHTML = num;
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
