@@ -1,56 +1,86 @@
-import Component from "./core.js";
+///////////////////////////////////////////////////////
+async function a() {
+    const a = await fetch('https://test.api.weniv.co.kr/mall');
+    const json = await a.json();
+    const $root = document.querySelector('#root');
+    const $ul = document.createElement('ul');
 
-class ProductImage extends Component {
-    render(){
-        const $productImage = document.createElement("img");
-        $productImage.setAttribute("src",this.props.src);
-        $productImage.addEventListener("click",(e)=>{
-        })
+    const $liItems = json.map((product)=>{
+        const $li = document.createElement('li');
+        const $price = document.createElement('span');
+        $price.innerText = product.price;
 
-        return $productImage
-    }
+        const $name = document.createElement('strong');
+        $name.innerText = product.productName
+
+        const $img = document.createElement("img");
+        $img.setAttribute('src','https://test.api.weniv.co.kr/'+product.thumbnailImg);
+
+        $li.append($name,$price,$img)
+        return $li
+    })
+    $ul.append(...$liItems); // 펼쳐서 출력
+    // $ul.append($liItems); // 묶여서 출력
+    $root.append($ul);
 }
 
-class ProductPage extends Component{
-    constructor(props){
-        super(props);
-        this.getData();
-        this.state = {
-            products:[]
-        }
-    }
+a()
 
-    async getData(){
-        const res = await fetch("https://test.api.weniv.co.kr/mall");
-        const json = await res.json();
-        this.setState({products:json});
-    }
+//promise는 then, catch, finally
+
+// import Component from "./core.js";
+
+// class ProductImage extends Component {
+//     render(){
+//         const $productImage = document.createElement("img");
+//         $productImage.setAttribute("src",this.props.src);
+//         $productImage.addEventListener("click",(e)=>{
+//         })
+
+//         return $productImage
+//     }
+// }
+
+// class ProductPage extends Component{
+//     constructor(props){
+//         super(props);
+//         this.getData();
+//         this.state = {
+//             products:[]
+//         }
+//     }
+
+//     async getData(){
+//         const res = await fetch("https://test.api.weniv.co.kr/mall");
+//         const json = await res.json();
+//         this.setState({products:json});
+//     }
     
-    render(){
-        const $page = document.createElement("div");
-        const $productLis = this.state.products.map((product)=>{
-            const productImage = new ProductImage({src:"https://test.api.weniv.co.kr/"+product.thumbnailImg})
-            const $productImage = productImage.initialize();
+//     render(){
+//         const $page = document.createElement("div");
+//         const $productLis = this.state.products.map((product)=>{
+//             const productImage = new ProductImage({src:"https://test.api.weniv.co.kr/"+product.thumbnailImg})
+//             const $productImage = productImage.initialize();
 
-            $productImage.addEventListener("click",()=>{
-                alert(`가격:${product.price}`);
-            })
-            return $productImage
-        })
-        $page.append(...$productLis);
-        return $page;
-    }
-}
+//             $productImage.addEventListener("click",()=>{
+//                 alert(`가격:${product.price}`);
+//             })
+//             return $productImage
+//         })
+//         $page.append(...$productLis);
+//         return $page;
+//     }
+// }
 
-const productPageProps = {buttontext:"안녕하세요!",name:"이름!"}
-const productPage = new ProductPage(productPageProps);
+// const productPageProps = {buttontext:"안녕하세요!",name:"이름!"}
+// const productPage = new ProductPage(productPageProps);
 
-init(productPage.initialize());
+// init(productPage.initialize());
 
-function init($page) {
-    const $root = document.querySelector("#root");
-    $root.append($page)
-}
+// function init($page) {
+//     const $root = document.querySelector("#root");
+//     $root.append($page)
+// }
 
 // async function onClickButton(){
 //     //버튼을 눌렀을때 동작하는거 작성하기
