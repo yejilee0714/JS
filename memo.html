@@ -20,7 +20,6 @@
             margin: 0 auto;
             display: flex;
             flex-direction: row;
-            justify-content: space-around;
         }
 
         /* 타이틀 영역 */
@@ -28,7 +27,6 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             padding: 20px;
         }
 
@@ -38,12 +36,16 @@
             font-size: 2rem;
         }
 
+        input{
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+
         textarea {
-            width: calc(100%-10px);
             height: 300px;
             padding: 10px;
             font-size: 1rem;
-            resize: none;
+            /* resize: none; */
         }
 
         button {
@@ -73,35 +75,24 @@
         }
 
         #output {
-            background-color: #f8f9fa;
             border: none;
             font-size: 0.8rem;
             padding: 10px;
-            margin: 20px;
-            width: 60%;
-            height: 100px;
-            /* overflow-y: scroll; */
+            margin-top: 20px;
+            width: calc(100% - 60px);
         }
 
         /* 미디어 쿼리 */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
-                /* justify-content: space-around; */
             }
-
-            /* .text-add {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: flex-start;
-                padding: 40px;
-            } */
 
             .text-add h1 {
                 font-size: 3rem;
             }
 
-            textarea {
+            input, textarea {
                 width: calc(100% - 60px);
                 font-size: 1.2rem;
             }
@@ -110,10 +101,6 @@
                 width: calc(100% - 40px);
                 font-size: 1.2rem;
             }
-
-            /* .text-list {
-                justify-content: flex-start;
-            } */
 
             #output {
                 width: calc(100% - 60px);
@@ -127,93 +114,88 @@
     <div class="container">
         <section class="text-add">
             <h1>메모장</h1>
+            <label for="title"></label>
+            <input type="text" name="" id="title" placeholder="제목을 입력하세요"/>
             <textarea id="memo" placeholder="메모를 입력하세요"></textarea>
             <button id="save">저장</button>
-            <!-- <button id="clear">초기화</button> -->
         </section>
         <section class="text-list">
             <div id="output"></div>
         </section>
     </div>
     <script>
-        // 메모장 웹 사이트 JavaScript 파일
+        const memoList = JSON.parse(localStorage.getItem("memoList")) || [];
 
-        // 저장 버튼을 클릭할 때마다 호출되는 함수
         function saveMemo() {
-            // 메모장의 내용을 가져옵니다.
+            const title = document.getElementById("title").value;
             const memo = document.getElementById("memo").value;
 
+            if (title.trim() === "") {
+                alert("제목 내용을 입력하세요.");
+                return;
+            }
+            
             if (memo.trim() === "") {
                 alert("메모 내용을 입력하세요.");
                 return;
             }
 
-            // 로컬 스토리지에서 메모 리스트를 가져옵니다.
-            const memoList = JSON.parse(localStorage.getItem("memoList")) || [];
+            // const memoList = JSON.parse(localStorage.getItem("memoList")) || [];
 
-            // 새로운 메모를 메모 리스트에 추가합니다.
-            memoList.push(memo);
-
-            // 메모 리스트를 로컬 스토리지에 다시 저장합니다.
+            memoList.push({title, memo});
             localStorage.setItem("memoList", JSON.stringify(memoList));
 
-            // 메모 리스트를 출력합니다.
             displayMemoList();
+            document.getElementById("title").value = "";
+            document.getElementById("memo").value = "";
         }
 
-        // 메모 리스트를 출력하는 함수
         function displayMemoList() {
-            const memoList = JSON.parse(localStorage.getItem("memoList")) || [];
+            // const memoList = JSON.parse(localStorage.getItem("memoList")) || [];
 
-            // 이전에 출력된 메모 리스트를 초기화합니다.
             const outputDiv = document.getElementById("output");
             outputDiv.innerHTML = "";
 
-            // 메모 리스트를 순회하며 HTML 요소를 생성하고 출력합니다.
-            memoList.forEach((memo, index) => {
+            memoList.forEach((memoList, index) => {
                 const memoDiv = document.createElement("div");
                 memoDiv.className = "memo-item";
 
+                let memoCount = document.createElement("p");
+                memoCount.textContent = index + 1;
+
+                const memoTitle = document.createElement("h2");
+                memoTitle.textContent = memoList.title;
+
                 const memoText = document.createElement("span");
-                memoText.textContent = memo;
+                memoText.textContent = memoList.memo;
 
                 const deleteButton = document.createElement("button");
                 deleteButton.textContent = "삭제";
                 deleteButton.addEventListener("click", () => deleteMemo(index));
 
+                memoDiv.style.display = "flex";
+                memoDiv.style.flexDirection = "column";
+                memoDiv.style.background = "#f8f9fa";
+                memoDiv.style.marginBottom = "20px";
+                memoDiv.style.padding = "0px 10px 10px";
+
+                memoDiv.appendChild(memoCount);
+                memoDiv.appendChild(memoTitle);
                 memoDiv.appendChild(memoText);
                 memoDiv.appendChild(deleteButton);
                 outputDiv.appendChild(memoDiv);
             });
         }
 
-        // 메모 리스트에서 메모를 삭제하는 함수
         function deleteMemo(index) {
-            const memoList = JSON.parse(localStorage.getItem("memoList")) || [];
+            // const memoList = JSON.parse(localStorage.getItem("memoList")) || [];
 
-            // 선택한 메모를 메모 리스트에서 삭제합니다.
             memoList.splice(index, 1);
-
-            // 메모 리스트를 로컬 스토리지에 다시 저장합니다.
             localStorage.setItem("memoList", JSON.stringify(memoList));
-
-            // 메모 리스트를 출력합니다.
             displayMemoList();
         }
 
-        // 초기화 버튼을 클릭할 때마다 호출되는 함수
-        /* function clearMemoList() {
-          localStorage.removeItem("memoList");
-          displayMemoList();
-        } */
-
-        // 저장 버튼에 이벤트 리스너를 등록합니다.
         document.getElementById("save").addEventListener("click", saveMemo);
-
-        // 초기화 버튼에 이벤트 리스너를 등록합니다.
-        // document.getElementById("clear").addEventListener("click", clearMemoList);
-
-        // 페이지가 로드될 때마다 메모 리스트를 출력합니다.
         displayMemoList();
 
     </script>
